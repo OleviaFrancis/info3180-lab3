@@ -10,6 +10,7 @@ from flask import render_template, request, redirect, url_for, flash
 from app import mail
 from flask_mail import Message
 from app.forms import MyForm
+from flask_mail import Message
 
 
 ###
@@ -31,9 +32,17 @@ def about():
 def contact():
     form = MyForm()
     if form.validate_on_submit():
-        return redirect('/')
+        name= request.form['name']
+        email= request.form['email']
+        subject= request.form['subject']
+        message= request.form['message']
+        msg = Message("request.form['subject']", sender=("request.form['name']",
+        "request.form['email']"),recipients=["quetysha@gmail.com"])
+        msg.body = 'Something happened'
+        mail.send(msg)
+        flash("This is your flash message")
+        return redirect(url_for('home'))
     return render_template('contact.html', form = form)
-
 
 ###
 # The functions below should be applicable to all Flask apps.
