@@ -36,8 +36,8 @@ def contact():
         email= request.form['email']
         subject= request.form['subject']
         message= request.form['message']
-        msg = Message("request.form['subject']", sender=("request.form['name']",
-        "request.form['email']"),recipients=["quetysha@gmail.com"])
+        msg = Message(request.form['subject'], sender=(request.form['name'],
+        request.form['email']),recipients=["quetysha@gmail.com"])
         msg.body = 'Something happened'
         mail.send(msg)
         flash("This is your flash message")
